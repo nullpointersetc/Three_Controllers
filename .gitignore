@@ -39,3 +39,8 @@
 
 # debug information files
 *.dwo
+/.vs
+/Three_Controllers/bin
+/Three_Controllers/obj
+Three_Controllers/Three_Controllers.csproj.user
+/Three_Controllers/wwwroot
