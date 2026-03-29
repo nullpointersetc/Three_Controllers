@@ -10,6 +10,7 @@
     using FromBody_a = Microsoft.AspNetCore.Mvc.FromBodyAttribute;
     using ProductDTO_t = NullPointersEtc.Three_Controllers.Models.ProductDTO;
     using IProductService_t = NullPointersEtc.Three_Controllers.Services.IProductService;
+    using Product_t = NullPointersEtc.Three_Controllers.Models.Product;
 
     [type: ApiController_a, Route_a("api/Products")]
     public class ProductsController : ControllerBase_t
@@ -30,7 +31,8 @@
             [FromBody_a] ProductDTO_t product)
         {
             ArgumentNullException.ThrowIfNull(product);
-            _productService.Create(product);
+
+            _productService.Create(Product_t.From(product));
 
             return CreatedAtAction(actionName: nameof(GetProduct),
                     routeValues: new { Id = 1 },

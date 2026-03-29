@@ -9,6 +9,7 @@
     using ControllerBase_t = Microsoft.AspNetCore.Mvc.ControllerBase;
     using FromBody_a = Microsoft.AspNetCore.Mvc.FromBodyAttribute;
     using OrderDTO_t = NullPointersEtc.Three_Controllers.Models.OrderDTO;
+    using Order_t = NullPointersEtc.Three_Controllers.Models.Order;
     using IOrderService_t= NullPointersEtc.Three_Controllers.Services.IOrderService;
 
     [type: ApiController_a, Route_a("api/Orders")]
@@ -30,7 +31,7 @@
             [FromBody_a] OrderDTO_t order)
         {
             ArgumentNullException.ThrowIfNull(order);
-            _orderService.PlaceOrder(order);
+            _orderService.PlaceOrder(Order_t.From(order));
 
             return CreatedAtAction(actionName: nameof(GetOrder),
                 routeValues: new { Id = order.Id },

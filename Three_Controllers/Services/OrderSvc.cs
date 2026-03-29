@@ -1,6 +1,7 @@
 ﻿namespace NullPointersEtc.Three_Controllers.Services
 {
-    using Order_t = NullPointersEtc.Three_Controllers.Models.OrderDTO;
+    using DatabaseContext = NullPointersEtc.Three_Controllers.Data.DatabaseContext;
+    using Order_t = NullPointersEtc.Three_Controllers.Models.Order;
 
     public interface IOrderService
     {
@@ -12,14 +13,31 @@
 
     public class OrderService : IOrderService
     {
-        private readonly List<Order_t> _orders = new();
+        public OrderService(DatabaseContext context)
+        {
+            m_context = context;
+        }
 
-        public IEnumerable<Order_t> GetAll() => _orders;
+        private readonly DatabaseContext m_context;
 
-        public Order_t? GetById(int id) => _orders.FirstOrDefault(o => o.Id == id);
+        public IEnumerable<Order_t> GetAll() => m_context.Orders.ToList();
 
-        public void PlaceOrder(Order_t order) => _orders.Add(order);
+        public Order_t? GetById(int id) => m_context.Orders.FirstOrDefault(o => o.Id == id);
 
-        public void CancelOrder(int id) => _orders.RemoveAll(o => o.Id == id);
+        public void PlaceOrder(Order_t order)
+        {
+            m_context.Orders.Add(order);
+            m_context.SaveChanges();
+        }
+
+        public void CancelOrder(int id)
+        {
+            Order_t? order = m_context.Orders.FirstOrDefault(ord => ord.Id == id);
+            if (order is not null)
+            {
+                m_context.Orders.Remove(order);
+                m_context.SaveChanges();
+            }
+        }
     }
 }

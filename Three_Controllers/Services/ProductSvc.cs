@@ -1,36 +1,46 @@
 ﻿namespace NullPointersEtc.Three_Controllers.Services
 {
-    using ProductDTO_t=NullPointersEtc.Three_Controllers.Models.ProductDTO;
+    using DatabaseContext = NullPointersEtc.Three_Controllers.Data.DatabaseContext;
+    using Product_t = NullPointersEtc.Three_Controllers.Models.Product;
 
     public interface IProductService
     {
-        IEnumerable<ProductDTO_t> GetAll();
-        ProductDTO_t? GetById(int id);
-        void Create(ProductDTO_t product);
-        void Update(ProductDTO_t product);
+        IEnumerable<Product_t> GetAll();
+        Product_t? GetById(int id);
+        void Create(Product_t product);
+        void Update(Product_t product);
         void Delete(int id);
     }
 
     public class ProductService : IProductService
     {
-        private readonly List<ProductDTO_t> _products = new();
+        public ProductService(DatabaseContext context) { m_context = context; }
+        private readonly DatabaseContext m_context;
 
-        public IEnumerable<ProductDTO_t> GetAll() => _products;
+        public IEnumerable<Product_t> GetAll() => m_context.Products.ToList();
 
-        public ProductDTO_t? GetById(int id) => _products.FirstOrDefault(p => p.Id == id);
+        public Product_t? GetById(int id) => m_context.Products.FirstOrDefault(p => p.Id == id);
 
-        public void Create(ProductDTO_t product) => _products.Add(product);
-
-        public void Update(ProductDTO_t product)
+        public void Create(Product_t product)
         {
-            var existing = GetById(product.Id);
-            if (existing != null)
-            {
-                existing.Name = product.Name;
-                existing.Price = product.Price;
-            }
+            m_context.Products.Add(product);
+            m_context.SaveChanges();
         }
 
-        public void Delete(int id) => _products.RemoveAll(p => p.Id == id);
+        public void Update(Product_t product)
+        {
+            m_context.Products.Update(product);
+            m_context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var product = m_context.Products.FirstOrDefault(p => p.Id == id);
+            if (product is not null)
+            {
+                m_context.Products.Remove(product);
+                m_context.SaveChanges();
+            }
+        }
     }
 }

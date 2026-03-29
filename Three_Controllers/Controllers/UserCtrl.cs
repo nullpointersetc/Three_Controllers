@@ -9,7 +9,8 @@
     using ControllerBase_t = Microsoft.AspNetCore.Mvc.ControllerBase;
     using FromBody_a = Microsoft.AspNetCore.Mvc.FromBodyAttribute;
     using UserDTO_t = NullPointersEtc.Three_Controllers.Models.UserDTO;
-    using IUserService_t=NullPointersEtc.Three_Controllers.Services.IUserService;
+    using User_t = NullPointersEtc.Three_Controllers.Models.User;
+    using IUserService_t =NullPointersEtc.Three_Controllers.Services.IUserService;
 
     [type: ApiController_a, Route_a("api/Users")]
     public class UsersController : ControllerBase_t
@@ -29,7 +30,8 @@
             [FromBody_a] UserDTO_t user)
         {
             ArgumentNullException.ThrowIfNull(user);
-            _userService.Register(user);
+
+            _userService.Add(User_t.From(user));
 
             return CreatedAtAction(actionName: nameof(GetUser),
                 routeValues: new { Id = user.Id },

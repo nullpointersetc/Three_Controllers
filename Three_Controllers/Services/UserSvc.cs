@@ -1,28 +1,52 @@
 ﻿namespace NullPointersEtc.Three_Controllers.Services
 {
-    using User = NullPointersEtc.Three_Controllers.Models.UserDTO;
+    using DatabaseContext = NullPointersEtc.Three_Controllers.Data.DatabaseContext;
+    using User_t = NullPointersEtc.Three_Controllers.Models.User;
     public interface IUserService
     {
-        IEnumerable<User> GetAll();
-        User? GetById(int id);
-        User? GetByEmail(string email);
-        void Register(User user);
+        IEnumerable<User_t> GetAll();
+        User_t? GetById(int id);
+        User_t? GetByEmail(string email);
+        void Add(User_t user);
         void Delete(int id);
     }
 
     public class UserService : IUserService
     {
-        private readonly List<User> _users = new();
+        public UserService(DatabaseContext context)
+        {
+            m_context = context;
+        }
 
-        public IEnumerable<User> GetAll() => _users;
+        private readonly DatabaseContext m_context;
 
-        public User? GetById(int id) => _users.FirstOrDefault(u => u.Id == id);
+        public IEnumerable<User_t> GetAll() => m_context.Users.ToList();
 
-        public User? GetByEmail(string email) =>
-            _users.FirstOrDefault(u => u.Email == email);
+        public User_t? GetById(int id) => m_context.Users.FirstOrDefault(u => u.Id == id);
 
-        public void Register(User user) => _users.Add(user);
+        public User_t? GetByEmail(string email) =>
+            m_context.Users.FirstOrDefault(u => u.Email == email);
 
-        public void Delete(int id) => _users.RemoveAll(u => u.Id == id);
+        public void Add(User_t user)
+        {
+            m_context.Users.Add(user);
+            m_context.SaveChanges();
+        }
+
+        public void Update(User_t user)
+        {
+            m_context.Users.Update(user);
+            m_context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var user = m_context.Users.FirstOrDefault(u => u.Id == id);
+            if (user != null)
+            {
+                m_context.Users.Remove(user);
+                m_context.SaveChanges();
+            }
+        }
     }
 }
