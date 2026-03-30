@@ -46,3 +46,7 @@ Three_Controllers/Three_Controllers.csproj.user
 /Three_Controllers/wwwroot
 /Core_Three_Controllers/obj
 /Core_Three_Controllers/bin
+/R_Three_Controllers/obj
+/R_Three_Controllers
+/REST_Three_Controllers/bin
+/REST_Three_Controllers/obj
