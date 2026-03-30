@@ -1,5 +1,6 @@
 ﻿#region "Products.cs"
 using Guid_t = System.Guid;
+using Precision_a = Microsoft.EntityFrameworkCore.PrecisionAttribute;
 
 namespace NullPointersEtc.ThreeControllers.Models;
 
@@ -58,6 +59,7 @@ public class Product
             : value;
     }
 
+    [property: Precision_a(18, 2)]
     public decimal Price
     {
         get => myPrice ??
@@ -73,6 +75,8 @@ public class Product
 
     private Guid_t? myID;
     private string? myName;
+
+    [field: Precision_a(18, 2)]
     private decimal? myPrice;
 }
 
@@ -106,6 +110,7 @@ public class ProductCreateDTO
             : value;
     }
 
+    [property: Precision_a(18, 2)]
     public decimal Price
     {
         get => myPrice ??
@@ -120,6 +125,8 @@ public class ProductCreateDTO
     }
 
     private string? myName;
+
+    [field: Precision_a(18, 2)]
     private decimal? myPrice;
 }
 
@@ -171,6 +178,7 @@ public class ProductDTO
             : value;
     }
 
+    [property: Precision_a(18, 2)]
     public decimal Price
     {
         get => myPrice ??
@@ -186,6 +194,8 @@ public class ProductDTO
 
     private Guid_t? myID;
     private string? myName;
+
+    [field: Precision_a(18, 2)]
     private decimal? myPrice;
 }
 
