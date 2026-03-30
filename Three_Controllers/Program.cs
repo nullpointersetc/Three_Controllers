@@ -31,7 +31,7 @@ public class Program
         using (IServiceScope scope = app.Services.CreateScope())
         {
             DatabaseContext context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
-            context.Database.Migrate();
+            context.Database.EnsureCreated();
         }
 
         app.MapControllers();
