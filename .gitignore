@@ -44,3 +44,5 @@
 /Three_Controllers/obj
 Three_Controllers/Three_Controllers.csproj.user
 /Three_Controllers/wwwroot
+/Core_Three_Controllers/obj
+/Core_Three_Controllers/bin
