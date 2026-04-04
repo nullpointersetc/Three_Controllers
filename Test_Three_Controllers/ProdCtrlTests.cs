@@ -30,6 +30,12 @@ public sealed class MockProductService : IProductService
 
     public void Create(Product product)
     {
+        product.ID = new Guid(a: 0xdf81_880e,
+            b: 0x39ab, c: 0x4e52,
+            d: 0x99, e: 0xec,
+            f: 0xde, g: 0x5f, h: 0x1e,
+            i: 0xa1, j: 0xeb, k: 0xa2);
+
         LastCreatedProduct = product;
         CreateCallCount++;
     }
@@ -165,10 +171,27 @@ public class ProductsControllerTests
             Assert.IsType<ProductDTO>(result.Value);
         }
 
-        [Fact(Skip = "This doesn't currently work because the create parameters are not filled in.")]
+        [Fact/*(Skip = "This doesn't currently work because the create parameters are not filled in.")*/]
         public void Calls_Service_Create_Exactly_Once()
         {
-            CreateSystemUnderTest().Create(new ProductCreateDTO());
+            ProductCreateDTO createDTO = new ProductCreateDTO { Name = "Test Product", Price = 9.99m };
+
+            var u1 = new Guid(a: 0xdf81_880e,
+            b: 0x39ab,
+            c: 0x4e52,
+            d: 0x99,
+            e: 0xec,
+            f: 0xde, g: 0x5f, h: 0x1e,
+            i: 0xa1, j: 0xeb, k: 0xa2
+
+                );
+
+
+
+
+
+
+            CreateSystemUnderTest().Create(createDTO);
 
             Assert.Equal(1, myService.CreateCallCount);
         }

@@ -1,163 +1,131 @@
 ﻿#region "Users.cs"
-using Guid_t = System.Guid;
+using Guid = System.Guid;
+using Unicode = Microsoft.EntityFrameworkCore.UnicodeAttribute;
+using StringLength = System.ComponentModel.DataAnnotations.StringLengthAttribute;
 
 namespace NullPointersEtc.ThreeControllers.Models;
 
 public class User
 {
-    public User()
-    {
-        myID = null;
-        myName = null;
-        myEMail = null;
-    }
+    public User() { }
 
     public User(UserCreateDTO from)
     {
-        myID = null;
-        myName = from.Name;
-        myEMail = from.EMail;
+        myName.Name = from.Name;
+        myEMail.EMail = from.EMail;
     }
 
     public User(UserDTO from)
     {
-        myID = from.ID;
-        myName = from.Name;
-        myEMail = from.EMail;
+        myID.ID = from.ID;
+        myName.Name = from.Name;
+        myEMail.EMail = from.EMail;
     }
 
-    public Guid_t ID
+    public Guid ID
     {
-        get => myID ??
-            throw new ArgumentNullException(
-                paramName: nameof(ID),
-                message: "has not been set");
-
-        set => myID = value;
+        get => myID.ID;
+        set => myID.ID = value;
     }
 
+    [Unicode(unicode: true),
+        StringLength(
+        maximumLength: UserName.MaxLength,
+        MinimumLength = UserName.MinLength)]
     public string Name
     {
-        get => myName ??
-            throw new ArgumentNullException(
-                paramName: nameof(Name),
-                message: "has not been set");
-
-        set => myName = value is null
-            ? throw new ArgumentNullException(
-                paramName: nameof(Name),
-                message: "cannot be null")
-            : value.Length == 0
-            ? throw new ArgumentOutOfRangeException(
-                paramName: nameof(Name),
-                message: "cannot be empty")
-            : value.Length > 100
-            ? throw new ArgumentOutOfRangeException(
-                paramName: nameof(Name),
-                message: "cannot be longer than 100 characters")
-            : value;
+        get => myName.Name;
+        set => myName.Name = value;
     }
 
+    [Unicode(unicode: true),
+        StringLength(
+        maximumLength: UserEMail.MaxLength,
+        MinimumLength = UserEMail.MinLength)]
     public string EMail
     {
-        get => myEMail ??
-            throw new ArgumentNullException(
-                paramName: nameof(EMail),
-                message: "has not been set");
-
-        set => myEMail = value is null
-            ? throw new ArgumentNullException(
-                paramName: nameof(EMail),
-                message: "cannot be null")
-            : value.Length == 0
-            ? throw new ArgumentOutOfRangeException(
-                paramName: nameof(EMail),
-                message: "cannot be empty")
-            : value.Length > 100
-            ? throw new ArgumentOutOfRangeException(
-                paramName: nameof(EMail),
-                message: "cannot be longer than 100 characters")
-            : value;
+        get => myEMail.EMail;
+        set => myEMail.EMail = value;
     }
 
-    private Guid_t? myID;
-    private string? myName;
-    private string? myEMail;
+    private UserID myID;
+    private UserName myName;
+    private UserEMail myEMail;
 }
 
 public class UserCreateDTO
 {
-    public UserCreateDTO()
-    {
-        myName = null;
-        myEMail = null;
-    }
+    public UserCreateDTO() { }
 
+    [Unicode(unicode: true),
+        StringLength(
+        maximumLength: UserName.MaxLength,
+        MinimumLength = UserName.MinLength)]
     public string Name
     {
-        get => myName ??
-            throw new ArgumentNullException(
-                paramName: nameof(Name),
-                message: "has not been set");
-
-        set => myName = value is null
-            ? throw new ArgumentNullException(
-                paramName: nameof(Name),
-                message: "cannot be null")
-            : value.Length == 0
-            ? throw new ArgumentOutOfRangeException(
-                paramName: nameof(Name),
-                message: "cannot be empty")
-            : value.Length > 100
-            ? throw new ArgumentOutOfRangeException(
-                paramName: nameof(Name),
-                message: "cannot be longer than 100 characters")
-            : value;
+        get => myName.Name;
+        set => myName.Name = value;
     }
 
+    [Unicode(unicode: true),
+        StringLength(
+        maximumLength: UserEMail.MaxLength,
+        MinimumLength = UserEMail.MinLength)]
     public string EMail
     {
-        get => myEMail ??
-            throw new ArgumentNullException(
-                paramName: nameof(EMail),
-                message: "has not been set");
-
-        set => myEMail = value is null
-            ? throw new ArgumentNullException(
-                paramName: nameof(EMail),
-                message: "cannot be null")
-            : value.Length == 0
-            ? throw new ArgumentOutOfRangeException(
-                paramName: nameof(EMail),
-                message: "cannot be empty")
-            : value.Length > 100
-            ? throw new ArgumentOutOfRangeException(
-                paramName: nameof(EMail),
-                message: "cannot be longer than 100 characters")
-            : value;
+        get => myEMail.EMail;
+        set => myEMail.EMail = value;
     }
 
-    private string? myName;
-    private string? myEMail;
+    private UserName myName;
+    private UserEMail myEMail;
 }
 
 public class UserDTO
 {
-    public UserDTO()
-    {
-        myID = null;
-        myName = null;
-        myEMail = null;
-    }
+    public UserDTO() { }
 
     public UserDTO(User from)
     {
-        myID = from.ID;
-        myName = from.Name;
-        myEMail = from.EMail;
+        myID.ID = from.ID;
+        myName.Name = from.Name;
+        myEMail.EMail = from.EMail;
     }
 
-    public Guid_t ID
+    public Guid ID
+    {
+        get => myID.ID;
+        set => myID.ID = value;
+    }
+
+    [Unicode(unicode: true),
+        StringLength(
+        maximumLength: UserName.MaxLength,
+        MinimumLength = UserName.MinLength)]
+    public string Name
+    {
+        get => myName.Name;
+        set => myName.Name = value;
+    }
+
+    [Unicode(unicode: true),
+        StringLength(
+        maximumLength: UserEMail.MaxLength,
+        MinimumLength = UserEMail.MinLength)]
+    public string EMail
+    {
+        get => myEMail.EMail;
+        set => myEMail.EMail = value;
+    }
+
+    private UserID myID;
+    private UserName myName;
+    private UserEMail myEMail;
+}
+
+internal struct UserID
+{
+    public Guid ID
     {
         get => myID ??
             throw new ArgumentNullException(
@@ -166,8 +134,16 @@ public class UserDTO
 
         set => myID = value;
     }
+    private Guid? myID;
+}
 
-    public string Name
+internal struct UserName
+{
+    [Unicode(unicode: true),
+        StringLength(
+        maximumLength: MaxLength,
+        MinimumLength = MinLength)]
+    internal string Name
     {
         get => myName ??
             throw new ArgumentNullException(
@@ -178,18 +154,26 @@ public class UserDTO
             ? throw new ArgumentNullException(
                 paramName: nameof(Name),
                 message: "cannot be null")
-            : value.Length == 0
+            : value.Length < MinLength
             ? throw new ArgumentOutOfRangeException(
                 paramName: nameof(Name),
                 message: "cannot be empty")
-            : value.Length > 100
+            : value.Length > MaxLength
             ? throw new ArgumentOutOfRangeException(
                 paramName: nameof(Name),
-                message: "cannot be longer than 100 characters")
+                message: "cannot be longer than " +
+                MaxLength.ToString() + " characters")
             : value;
     }
 
-    public string EMail
+    internal const int MinLength = 1, MaxLength = 100;
+
+    private string? myName;
+}
+
+internal struct UserEMail
+{
+    internal string EMail
     {
         get => myEMail ??
             throw new ArgumentNullException(
@@ -200,19 +184,24 @@ public class UserDTO
             ? throw new ArgumentNullException(
                 paramName: nameof(EMail),
                 message: "cannot be null")
-            : value.Length == 0
+            : value.Length < MinLength
             ? throw new ArgumentOutOfRangeException(
                 paramName: nameof(EMail),
                 message: "cannot be empty")
-            : value.Length > 100
+            : value.Length > MaxLength
             ? throw new ArgumentOutOfRangeException(
                 paramName: nameof(EMail),
-                message: "cannot be longer than 100 characters")
+                message: "cannot be longer than " +
+                MaxLength.ToString() + " characters")
+            : !value.Contains('@')
+            ? throw new ArgumentOutOfRangeException(
+                paramName: nameof(EMail),
+                message: "must contain an '@' character")
             : value;
     }
 
-    private Guid_t? myID;
-    private string? myName;
+    internal const int MinLength = 1, MaxLength = 100;
+
     private string? myEMail;
 }
 
