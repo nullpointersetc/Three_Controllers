@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core_Three_Controllers\Core_Three_Controllers.csproj" />
+    <ProjectReference Include="..\Eight_Tiles\Eight_Tiles.csproj" />
     <ProjectReference Include="..\REST_Three_Controllers\REST_Three_Controllers.csproj" />
   </ItemGroup>
 

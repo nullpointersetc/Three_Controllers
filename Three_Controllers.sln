@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "REST_Three_Controllers", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_Three_Controllers", "Test_Three_Controllers\Test_Three_Controllers.csproj", "{C23D2616-E4BF-4F0C-B840-F378C7B32A6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eight_Tiles", "Eight_Tiles\Eight_Tiles.csproj", "{2ADBB116-ECF1-4E91-8882-4271B7C9B0AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C23D2616-E4BF-4F0C-B840-F378C7B32A6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C23D2616-E4BF-4F0C-B840-F378C7B32A6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C23D2616-E4BF-4F0C-B840-F378C7B32A6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ADBB116-ECF1-4E91-8882-4271B7C9B0AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ADBB116-ECF1-4E91-8882-4271B7C9B0AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ADBB116-ECF1-4E91-8882-4271B7C9B0AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ADBB116-ECF1-4E91-8882-4271B7C9B0AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
